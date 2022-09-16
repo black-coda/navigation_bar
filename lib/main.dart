@@ -20,8 +20,6 @@ class AppWidget extends StatelessWidget {
   }
 }
 
-var indexClicked = 0;
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -30,147 +28,73 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var indexClicked = 1;
   final pages = const [
     Center(
-      child: Text('Inbox'),
+      child: Text("Indox"),
     ),
     Center(
-      child: Text('Starred'),
+      child: Text("Starred"),
     ),
-
+    Center(
+      child: Text("Sent"),
+    ),
+    Center(
+      child: Text("Draft"),
+    ),
+    Center(
+      child: Text("Trash"),
+    ),
   ];
-
-  updateState(int index) {
-    return () {
-      setState(() {
-        indexClicked = index;
-      });
-      Navigator.pop(context);
-    };
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Navigation Bar"),
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 8, 17, 30),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 50.0,
+        selectedItemColor: Defaults.activeNavSelectedColor,
+        unselectedItemColor: Defaults.bottomNavSelectedColor,
+        // ignore: use_full_hex_values_for_flutter_colors
+        backgroundColor: const Color(0xff204878ff),
+        currentIndex: indexClicked,
+        onTap: (value) {
+          setState(() {
+            indexClicked = value;
+          });
+        },
+        type: BottomNavigationBarType.shifting,
+        items: [
+          BottomNavigationBarItem(
+              backgroundColor: Colors.red[300],
+              icon: Icon(
+                Defaults.bottomNavItemIcon[0],
+                color: Colors.white,
+              ),
+              label: Defaults.bottomNavItemText[0]),
+          BottomNavigationBarItem(
+              backgroundColor: const Color.fromARGB(255, 7, 134, 128),
+              icon: Icon(Defaults.bottomNavItemIcon[1], color: Colors.white),
+              label: Defaults.bottomNavItemText[1]),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.blue[300],
+              icon: Icon(Defaults.bottomNavItemIcon[2], color: Colors.white),
+              label: Defaults.bottomNavItemText[2]),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.green[300],
+              icon: Icon(Defaults.bottomNavItemIcon[3], color: Colors.white),
+              label: Defaults.bottomNavItemText[3]),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.yellow[300],
+              icon: Icon(Defaults.bottomNavItemIcon[4], color: Colors.white),
+              label: Defaults.bottomNavItemText[4]),
+        ],
+      ),
       body: pages[indexClicked],
-      endDrawer: Drawer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/back.jpg'),
-                  fit: BoxFit.fill,
-                ),
-              ),
-              padding: const EdgeInsets.all(0),
-              // margin: EdgeInsets.zero,
-              child: Container(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const CircleAvatar(
-                      radius: 27.0,
-                      backgroundImage: AssetImage("assets/images/profile.jpg"),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                      "Okwharobo Solomon M",
-                      style: GoogleFonts.sanchez(
-                        fontSize: 15.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 4.0,
-                    ),
-                    Text(
-                      'mondaysolomon01@gmail.com',
-                      style: GoogleFonts.sanchez(
-                        fontSize: 12.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  AppDrawerTile(
-                    index: 0,
-                    onTap: updateState(0),
-                  ),
-                  AppDrawerTile(
-                    index: 1,
-                    onTap: updateState(1),
-                  ),
-                  AppDrawerTile(
-                    index: 2,
-                    onTap: updateState(2),
-                  ),
-                  AppDrawerTile(
-                    index: 3,
-                    onTap: updateState(3),
-                  ),
-                  AppDrawerTile(
-                    index: 4,
-                    onTap: updateState(4),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }
-
-class AppDrawerTile extends StatelessWidget {
-  const AppDrawerTile({super.key, required this.index, required this.onTap});
-
-  final int index;
-  final VoidCallback onTap; // or use final voidCallBack onTap
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      selected: indexClicked == index,
-      selectedTileColor: Defaults.activeNavSelectedColor,
-      leading: Icon(
-        Defaults.buttomNavItemIcon[index],
-        size: 30,
-        color: indexClicked == index
-            ? Defaults.buttomNavSelectedColor
-            : Defaults.buttomNavColor,
-      ),
-      title: Text(
-        Defaults.buttomNavItemText[index],
-        style: GoogleFonts.sanchez(
-          fontSize: 13,
-          fontWeight: FontWeight.w300,
-          color: indexClicked == index
-              ? Defaults.buttomNavSelectedColor
-              : Defaults.buttomNavColor,
-        ),
-      ),
-    );
-  }
-}
-
-
