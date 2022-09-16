@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Defaults {
-  static const Color buttomNavColor = Color.fromARGB(255, 38, 40, 41);
-  static const Color buttomNavSelectedColor = Color(0xffB98F00);
-  static const Color activeNavSelectedColor = Color.fromARGB(84, 175, 156, 93);
+  static const Color bottomNavColor = Color.fromARGB(255, 38, 40, 41);
+  static const Color activeNavSelectedColor =
+      Color.fromARGB(255, 255, 255, 255);
+  static const Color bottomNavSelectedColor = Color.fromARGB(228, 85, 103, 172);
 
-  static final buttomNavItemText = [
+  static final bottomNavItemText = [
     'Inbox',
     'Starred',
     'Sent',
@@ -14,7 +15,7 @@ class Defaults {
     'Spam',
   ];
 
-  static final buttomNavItemIcon = [
+  static final bottomNavItemIcon = [
     Icons.inbox,
     Icons.star,
     Icons.send,
