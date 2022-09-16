@@ -37,15 +37,7 @@ class _HomePageState extends State<HomePage> {
     Center(
       child: Text('Starred'),
     ),
-    Center(
-      child: Text('Sent'),
-    ),
-    Center(
-      child: Text('Draft'),
-    ),
-    Center(
-      child: Text('Spam'),
-    )
+
   ];
 
   updateState(int index) {
@@ -180,3 +172,5 @@ class AppDrawerTile extends StatelessWidget {
     );
   }
 }
+
+
