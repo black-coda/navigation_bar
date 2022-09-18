@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
             indexClicked = value;
           });
         },
-        type: BottomNavigationBarType.shifting,
+        // type: BottomNavigationBarType.shifting,
         items: [
           BottomNavigationBarItem(
               backgroundColor: Colors.red[300],
