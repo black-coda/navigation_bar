@@ -28,73 +28,93 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var indexClicked = 1;
-  final pages = const [
-    Center(
-      child: Text("Indox"),
-    ),
-    Center(
-      child: Text("Starred"),
-    ),
-    Center(
-      child: Text("Sent"),
-    ),
-    Center(
-      child: Text("Draft"),
-    ),
-    Center(
-      child: Text("Trash"),
-    ),
-  ];
+  var text = 'None Clicked';
+
+  GlobalKey<ScaffoldState> drawerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Navigation Bar"),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 8, 17, 30),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 50.0,
-        selectedItemColor: Defaults.activeNavSelectedColor,
-        unselectedItemColor: Defaults.bottomNavSelectedColor,
-        // ignore: use_full_hex_values_for_flutter_colors
-        backgroundColor: const Color(0xff204878ff),
-        currentIndex: indexClicked,
-        onTap: (value) {
-          setState(() {
-            indexClicked = value;
-          });
-        },
-        // type: BottomNavigationBarType.shifting,
-        items: [
-          BottomNavigationBarItem(
-              backgroundColor: Colors.red[300],
-              icon: Icon(
-                Defaults.bottomNavItemIcon[0],
-                color: Colors.white,
+    return DefaultTabController(
+      length: 3,
+      initialIndex: 0,
+      animationDuration: const Duration(seconds: 2),
+      child: Scaffold(
+          key: drawerKey,
+          endDrawer: Drawer(),
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    text = "Configure settings";
+                  });
+                },
+                icon: const Icon(Icons.construction),
+                splashRadius: 20,
               ),
-              label: Defaults.bottomNavItemText[0]),
-          BottomNavigationBarItem(
-              backgroundColor: const Color.fromARGB(255, 7, 134, 128),
-              icon: Icon(Defaults.bottomNavItemIcon[1], color: Colors.white),
-              label: Defaults.bottomNavItemText[1]),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.blue[300],
-              icon: Icon(Defaults.bottomNavItemIcon[2], color: Colors.white),
-              label: Defaults.bottomNavItemText[2]),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.green[300],
-              icon: Icon(Defaults.bottomNavItemIcon[3], color: Colors.white),
-              label: Defaults.bottomNavItemText[3]),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.yellow[300],
-              icon: Icon(Defaults.bottomNavItemIcon[4], color: Colors.white),
-              label: Defaults.bottomNavItemText[4]),
-        ],
-      ),
-      body: pages[indexClicked],
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    text = "AC unit settings";
+                  });
+                },
+                icon: const Icon(Icons.ac_unit_sharp),
+                splashRadius: 20,
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    drawerKey.currentState?.openEndDrawer();
+                  });
+                },
+                icon: const CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/profile.jpg'),
+                ),
+                splashRadius: 20,
+              )
+            ],
+            backgroundColor: Colors.blue[100],
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    text = 'Homepage';
+                  });
+                },
+                icon: const Image(
+                  image: AssetImage("assets/images/logo.png"),
+                ),
+              ),
+            ),
+            title: const Text('Flutter'),
+            bottom: const TabBar(
+              tabs: [
+                Tab(
+                  icon: Icon(Icons.cloud_outlined),
+                ),
+                Tab(
+                  icon: Icon(Icons.beach_access_sharp),
+                ),
+                Tab(
+                  icon: Icon(Icons.brightness_5_sharp),
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              Center(
+                child: Text("Cloudy --$text"),
+              ),
+              Center(
+                child: Text("Rainy --$text"),
+              ),
+              Center(
+                child: Text("Settings --$text"),
+              )
+            ],
+          )),
     );
   }
 }
