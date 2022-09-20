@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:navigation_bar/default/defaults.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:navigation_bar/default/defaults.dart';
 
 void main() {
   runApp(const AppWidget());
@@ -37,10 +37,10 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: 3,
       initialIndex: 0,
-      animationDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(seconds: 1),
       child: Scaffold(
           key: drawerKey,
-          endDrawer: Drawer(),
+          endDrawer: const Drawer(),
           appBar: AppBar(
             actions: [
               IconButton(
