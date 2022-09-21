@@ -35,11 +35,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       initialIndex: 0,
       animationDuration: const Duration(seconds: 1),
       child: Scaffold(
           key: drawerKey,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: FloatingActionButton(
+            // shape:
+            //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            onPressed: () {},
+            child: const Icon(Icons.download_sharp),
+          ),
           endDrawer: const Drawer(),
           appBar: AppBar(
             actions: [
@@ -71,9 +79,9 @@ class _HomePageState extends State<HomePage> {
                   backgroundImage: AssetImage('assets/images/profile.jpg'),
                 ),
                 splashRadius: 20,
-              )
+              ),
             ],
-            backgroundColor: Colors.blue[100],
+            backgroundColor: Colors.blue[900],
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
@@ -99,6 +107,9 @@ class _HomePageState extends State<HomePage> {
                 Tab(
                   icon: Icon(Icons.brightness_5_sharp),
                 ),
+                Tab(
+                  icon: Icon(Icons.history_sharp),
+                ),
               ],
             ),
           ),
@@ -107,11 +118,59 @@ class _HomePageState extends State<HomePage> {
               Center(
                 child: Text("Cloudy --$text"),
               ),
-              Center(
-                child: Text("Rainy --$text"),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.save_alt_sharp,
+                          color: Colors.green[800],
+                        ),
+                        const SizedBox(width: 15),
+                        const Text("Download")
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Center(
-                child: Text("Settings --$text"),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.black87),
+                    child: const Text("New Button"),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        child: const Text("No"),
+                        onPressed: () {},
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Icon(
+                          Icons.save,
+                        ),
+                      )
+                    ],
+                  )
+                ],
               )
             ],
           )),
