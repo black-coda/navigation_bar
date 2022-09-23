@@ -1,15 +1,9 @@
-// ignore_for_file: avoid_unnecessary_containers
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:navigation_bar/default/defaults.dart';
 
-void main() {
-  runApp(const AppWidget());
-}
+void main() => runApp(const MyApp());
 
-class AppWidget extends StatelessWidget {
-  const AppWidget({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,100 +15,164 @@ class AppWidget extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var text = 'None Clicked';
+  final snackBar = SnackBar(
+    backgroundColor: Colors.white,
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    content: Row(
+      children: const [
+        Icon(Icons.emoji_emotions_sharp),
+        SizedBox(
+          width: 20,
+        ),
+        Text(
+          "Suceesfull",
+          style: TextStyle(color: Colors.black87),
+        )
+      ],
+    ),
+  );
 
-  GlobalKey<ScaffoldState> drawerKey = GlobalKey();
+  String location = 'None Selected yet';
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      initialIndex: 0,
-      animationDuration: const Duration(seconds: 2),
-      child: Scaffold(
-          key: drawerKey,
-          endDrawer: Drawer(),
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    text = "Configure settings";
-                  });
-                },
-                icon: const Icon(Icons.construction),
-                splashRadius: 20,
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple[800],
+                // shape: ButtonStyle()
               ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    text = "AC unit settings";
-                  });
-                },
-                icon: const Icon(Icons.ac_unit_sharp),
-                splashRadius: 20,
-              ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    drawerKey.currentState?.openEndDrawer();
-                  });
-                },
-                icon: const CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/profile.jpg'),
-                ),
-                splashRadius: 20,
-              )
-            ],
-            backgroundColor: Colors.blue[100],
-            leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    text = 'Homepage';
-                  });
-                },
-                icon: const Image(
-                  image: AssetImage("assets/images/logo.png"),
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.add),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text("Add")
+                ],
               ),
             ),
-            title: const Text('Flutter'),
-            bottom: const TabBar(
-              tabs: [
-                Tab(
-                  icon: Icon(Icons.cloud_outlined),
-                ),
-                Tab(
-                  icon: Icon(Icons.beach_access_sharp),
-                ),
-                Tab(
-                  icon: Icon(Icons.brightness_5_sharp),
-                ),
-              ],
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          body: TabBarView(
-            children: [
-              Center(
-                child: Text("Cloudy --$text"),
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: ((context) {
+                    return AlertDialog(
+                      icon: const Icon(Icons.dangerous_sharp),
+                      iconColor: Colors.red,
+                      title: const Text("Delete"),
+                      content:
+                          const Text("Are you sure you wannna delete this"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Yes'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(
+                                context); // added to remove alertbox after the text is clicked
+                          },
+                          child: const Text('No'),
+                        )
+                      ],
+                    );
+                  }),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepOrange[800],
+                // shape: ButtonStyle()
               ),
-              Center(
-                child: Text("Rainy --$text"),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.delete_sharp),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text("Add")
+                ],
               ),
-              Center(
-                child: Text("Settings --$text"),
-              )
-            ],
-          )),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                // wait for user to pick a option
+                // we are assigning whatever value the use picks to the variable loc using
+                // the Navigator.pop
+                final String loc = await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SimpleDialog(
+                      title: const Text("Choose your location"),
+                      children: [
+                        SimpleDialogOption(
+                          onPressed: () {
+                            Navigator.pop(context, "America");
+                          },
+                          child: const Text("America"),
+                        ),
+                        SimpleDialogOption(
+                          onPressed: () {
+                            Navigator.pop(context, "Nigeria");
+                          },
+                          child: const Text("Nigeria"),
+                        ),
+                        SimpleDialogOption(
+                          onPressed: () {
+                            Navigator.pop(context, "UK");
+                          },
+                          child: const Text("UK"),
+                        ),
+                        SimpleDialogOption(
+                          onPressed: () {
+                            Navigator.pop(context, "Estonia");
+                          },
+                          child: const Text("Estonia"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                setState(() {
+                  location = loc;
+                }); // it can also be called in them individually
+              },
+              child: const Text(
+                "Stream Location",
+              ),
+            ),
+            Text(location),
+          ],
+        ),
+      ),
     );
   }
 }
