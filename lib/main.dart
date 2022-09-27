@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatefulWidget {
   const HomePage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
               onPressed: () {
                 showDialog(
-                  barrierDismissible: false,
+                  barrierDismissible: false, // prevent outside click when dilog is shown
                   context: context,
                   builder: ((context) {
                     return AlertDialog(
